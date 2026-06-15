@@ -1,0 +1,4 @@
+library google/fonts
+
+let print = (input: string):
+    __builtin_print input
