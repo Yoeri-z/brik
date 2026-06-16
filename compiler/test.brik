@@ -1,0 +1,7 @@
+let hello = (name: string) -> string:
+    print("hello" + name)
+
+# Both of these are valid!
+"Alice".hello
+hello("Alice")
+

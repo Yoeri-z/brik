@@ -1,0 +1,35 @@
+{
+  "grammars": [
+    {
+      "name": "brik",
+      "camelcase": "Brik",
+      "title": "Brik",
+      "scope": "source.brik",
+      "file-types": [
+        "brik"
+      ],
+      "injection-regex": "^brik$"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Brik grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "Yoeri"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/Yoeri/tree-sitter-brik"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "wasm": true
+  }
+}

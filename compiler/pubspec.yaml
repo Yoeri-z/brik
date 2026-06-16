@@ -1,0 +1,14 @@
+name: compiler
+description: A sample command-line application with basic argument parsing.
+version: 0.0.1
+
+environment:
+  sdk: ^3.12.1
+
+dependencies:
+  args: ^2.7.0
+  path: ^1.9.1
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6
