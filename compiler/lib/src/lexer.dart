@@ -49,15 +49,21 @@ enum TokenType {
 }
 
 class Token {
-  const Token(this.type, this.lexeme, this.line, this.column);
+  const Token(this.type, this.lexeme, this.start, this.end);
 
   final TokenType type;
   final String lexeme;
-  final int line;
-  final int column;
+
+  // start incl
+  final (int, int) start;
+
+  int get line => start.$1;
+
+  // end excl
+  final (int, int) end;
 
   @override
-  String toString() => '$type("$lexeme") [$line:$column]';
+  String toString() => '$type("$lexeme") [${start.$1}:${start.$2}]';
 }
 
 class Lexer {
@@ -70,6 +76,8 @@ class Lexer {
   int _current = 0;
   int _line = 1;
   int _column = 1;
+
+  (int, int) get cursor => (_line, _column);
 
   final List<int> _indentStack = [0];
 
@@ -85,7 +93,7 @@ class Lexer {
       _addToken(TokenType.dedent);
     }
 
-    _tokens.add(Token(TokenType.eof, "", _line, _column));
+    _tokens.add(Token(TokenType.eof, "", cursor, cursor));
     return _tokens;
   }
 
@@ -285,7 +293,7 @@ class Lexer {
     String text = lexeme.isEmpty ? _source.substring(_start, _current) : lexeme;
     // Adjust column so it points to the START of the token, not the end.
     int startColumn = _column - (_current - _start);
-    _tokens.add(Token(type, text, _line, startColumn));
+    _tokens.add(Token(type, text, (_line, startColumn), cursor));
   }
 
   TokenType? _getReservedKeyword(String text) {

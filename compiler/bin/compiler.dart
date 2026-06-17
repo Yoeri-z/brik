@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:compiler/src/grammar/parser.dart';
+import 'package:compiler/src/utils/errors.dart';
 import 'package:path/path.dart' as p;
 
 import 'package:compiler/src/lexer.dart';
@@ -31,6 +33,9 @@ void printUsage(ArgParser argParser) {
 
 void main(List<String> arguments) {
   final ArgParser argParser = buildParser();
+
+  SourceReporter? reporter;
+
   try {
     final ArgResults results = argParser.parse(arguments);
 
@@ -54,7 +59,11 @@ void main(List<String> arguments) {
 
     final tokens = lexer.tokenize();
 
-    print(tokens.join('\n'));
+    reporter = SourceReporter(brikCode);
+    final parser = Parser(tokens);
+    parser.parseProgram();
+  } on CompileError catch (e) {
+    reporter?.reportError(e);
   } on FormatException catch (e) {
     print(e.message);
     print('');

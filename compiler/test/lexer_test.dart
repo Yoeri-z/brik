@@ -136,8 +136,8 @@ void main() {
       for (int i = 0; i < tokens.length; i++) {
         expect(tokens[i].type, equals(expectedTokens[i].type));
         expect(tokens[i].lexeme, equals(expectedTokens[i].lexeme));
-        expect(tokens[i].line, equals(expectedTokens[i].line));
-        expect(tokens[i].column, equals(expectedTokens[i].col));
+        expect(tokens[i].start.$1, equals(expectedTokens[i].line));
+        expect(tokens[i].start.$2, equals(expectedTokens[i].col));
       }
     });
   });
